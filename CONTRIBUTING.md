@@ -54,3 +54,8 @@ Component layout: `cli.py` (entry points) → `token_dashboard/scanner.py` (JSON
 ## License
 
 By contributing, you agree your contribution is licensed under the [MIT License](LICENSE).
+
+## Contributors
+
+- **屿沐 (Vesper-lucky)**: Project maintainer, theme direction, and release owner.
+- **OpenAI Codex**: AI coding assistant that may help with documentation, implementation, testing, and release preparation. Contributions are reviewed and published by the human maintainer.
