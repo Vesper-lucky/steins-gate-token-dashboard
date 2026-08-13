@@ -1,0 +1,101 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[codz]
+*$py.class
+*.so
+
+# Python build and packaging output
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Test, coverage, and static-analysis caches
+.coverage
+.coverage.*
+.cache/
+.hypothesis/
+.mypy_cache/
+.pytest_cache/
+.pyre/
+.ruff_cache/
+.tox/
+.nox/
+coverage.xml
+htmlcov/
+nosetests.xml
+cover/
+
+# Virtual environments and local configuration
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.env
+.env.*
+!.env.example
+.python-version
+.pdm-python
+
+# Local runtime data and logs. Keep only sanitized fixtures in the repository.
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.sqlite-*
+*.log
+*.jsonl
+!.gitignore
+!tests/fixtures/*.jsonl
+data/
+cache/
+out/
+tmp/
+temp/
+
+# Claude Code / Codex local state and transcripts
+.claude/
+.codex/
+.agents/
+docs/superpowers/
+.superpowers/
+
+# Editors and operating-system files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# JavaScript dependencies and generated output
+node_modules/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+bun.lock
+
+# Jupyter / notebook tooling
+.ipynb_checkpoints/
+profile_default/
+ipython_config.py
+
+# Tool-specific local files
+.pypirc
+.streamlit/secrets.toml
+*.pid

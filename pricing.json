@@ -1,0 +1,20 @@
+{
+  "models": {
+    "gpt-5.6-sol":        { "tier": "gpt",    "input":  5.00, "output": 30.00, "cache_read": 0.50, "cache_create_5m":  6.25, "cache_create_1h":  6.25, "long_context_threshold": 272000, "long_context_input_multiplier": 2.0, "long_context_output_multiplier": 1.5 },
+    "gpt-5.6-terra":      { "tier": "gpt",    "input":  2.00, "output": 12.00, "cache_read": 0.20, "cache_create_5m":  2.50, "cache_create_1h":  2.50, "long_context_threshold": 272000, "long_context_input_multiplier": 2.0, "long_context_output_multiplier": 1.5, "history": [{ "before": "2026-07-30T17:00:00Z", "input": 2.50, "output": 15.00, "cache_read": 0.25, "cache_create_5m": 3.125, "cache_create_1h": 3.125 }] },
+    "gpt-5.6-luna":       { "tier": "gpt",    "input":  0.20, "output":  1.20, "cache_read": 0.02, "cache_create_5m":  0.25, "cache_create_1h":  0.25, "long_context_threshold": 272000, "long_context_input_multiplier": 2.0, "long_context_output_multiplier": 1.5, "history": [{ "before": "2026-07-30T17:00:00Z", "input": 1.00, "output": 6.00, "cache_read": 0.10, "cache_create_5m": 1.25, "cache_create_1h": 1.25 }] },
+    "gpt-5.5":            { "tier": "gpt",    "input":  5.00, "output": 30.00, "cache_read": 0.50, "cache_create_5m":  5.00, "cache_create_1h":  5.00 },
+    "gpt-5.4":            { "tier": "gpt",    "input":  2.50, "output": 15.00, "cache_read": 0.25, "cache_create_5m":  2.50, "cache_create_1h":  2.50 },
+    "gpt-5.4-mini":       { "tier": "gpt",    "input":  0.75, "output":  4.50, "cache_read": 0.075, "cache_create_5m":  0.75, "cache_create_1h":  0.75 },
+    "deepseek-v4-flash":   { "tier": "deepseek", "input": 0.14,  "output": 0.28,  "cache_read": 0.0028,   "cache_create_5m": 0.14,  "cache_create_1h": 0.14 },
+    "deepseek-v4-pro":     { "tier": "deepseek", "input": 0.435, "output": 0.87,  "cache_read": 0.003625, "cache_create_5m": 0.435, "cache_create_1h": 0.435 },
+    "deepseek-chat":       { "tier": "deepseek", "input": 0.14,  "output": 0.28,  "cache_read": 0.0028,   "cache_create_5m": 0.14,  "cache_create_1h": 0.14 },
+    "deepseek-reasoner":   { "tier": "deepseek", "input": 0.14,  "output": 0.28,  "cache_read": 0.0028,   "cache_create_5m": 0.14,  "cache_create_1h": 0.14 }
+  },
+  "plans": {
+    "api":     { "monthly": 0,   "label": "API（按 token 计费）" },
+    "pro":     { "monthly": 20,  "label": "Pro" },
+    "max":     { "monthly": 100, "label": "Max" },
+    "max-20x": { "monthly": 200, "label": "Max 20x" }
+  }
+}
