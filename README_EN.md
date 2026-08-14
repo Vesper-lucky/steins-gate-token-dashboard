@@ -23,8 +23,24 @@ This project is a modified derivative of [`nateherkai/token-dashboard`](https://
 - **Skills**: Claude Code / Codex skill invocation counts and estimated skill-definition tokens.
 - **Tips**: token-saving suggestions based on repeated reads, large tool results, and low cache-hit rates.
 - **Settings**: cost display modes for API, Pro, Max, and Max 20x plans.
+- **Multi-model accounting**: one local dashboard can track models from multiple providers, deployments, and model families; it is not limited to the models listed in the repository's bundled pricing file.
 - **Steins;Gate theme**: world-line counter, character visuals, and divergence-meter-style token display.
 - **Privacy mode**: blur prompts, project names, session identifiers, and tips in the UI.
+
+### Multi-model support (core feature)
+
+The scanner groups records by the exact `message.model` value, so one SQLite database can compare input, output, cache, and cost across models. Common market examples include (use the exact names emitted by your logs):
+
+| Provider / ecosystem | Example model families |
+| --- | --- |
+| OpenAI | GPT-5, GPT-4.1, o3, o4-mini |
+| Anthropic | Claude Opus, Claude Sonnet, Claude Haiku |
+| Google | Gemini Pro, Gemini Flash |
+| DeepSeek | DeepSeek Chat, DeepSeek Reasoner |
+| Alibaba / Qwen | Qwen, Qwen3, Qwen-Max |
+| Meta / Mistral | Llama, Mistral Large |
+
+The bundled [`pricing.json`](pricing.json) is only a set of example rates for cost estimation, not a model allowlist. Any model can still be counted when its session record provides a model name and usage fields; add a matching price entry only when you want cost estimates. You can self-host the dashboard over multiple Claude-compatible JSONL roots with `TOKDASH_PROJECTS_DIRS`, or convert other local records with the Codex bridge first.
 
 ## Improvements over upstream
 
@@ -84,7 +100,7 @@ Available environment variables:
 
 ### Adding model prices manually
 
-Pricing lives in [`pricing.json`](pricing.json). The model key must exactly match the `message.model` value in your logs. Prices are USD per 1,000,000 tokens:
+Pricing lives in [`pricing.json`](pricing.json). It controls cost estimation but does not limit which models can be counted. The model key must exactly match the `message.model` value in your logs. Prices are USD per 1,000,000 tokens:
 
 ```json
 {
@@ -101,7 +117,7 @@ Pricing lives in [`pricing.json`](pricing.json). The model key must exactly matc
 }
 ```
 
-Reload the page after editing the file. Add a `history` array with UTC `before` timestamps for historical rates. Add `long_context_threshold`, `long_context_input_multiplier`, and `long_context_output_multiplier` for long-context pricing. You can ask an AI to draft the JSON from the model’s official pricing page, but manually verify the model name, cache rates, currency, and effective time. Unknown models still show token counts, while their cost is marked unknown or estimated.
+Reload the page after editing the file. Add a `history` array with UTC `before` timestamps for historical rates. Add `long_context_threshold`, `long_context_input_multiplier`, and `long_context_output_multiplier` for long-context pricing. You can ask an AI to draft the JSON from the model’s official pricing page, but manually verify the model name, cache rates, currency, and effective time. Unknown models still show token counts while their cost is marked unknown or estimated, so you can start measuring a new model before adding its price.
 
 ## Privacy and security
 
@@ -137,6 +153,8 @@ The code is modified from [`nateherkai/token-dashboard`](https://github.com/nate
 
 ## Contributors
 
+Contributors are listed by their project roles: 屿沐 / Vesper-lucky maintains and releases the project, while OpenAI Codex assisted with implementation, accounting refinements, bilingual documentation, and open-source preparation.
+
 <table>
   <tr>
     <td align="center" valign="top" width="160">
@@ -155,5 +173,3 @@ The code is modified from [`nateherkai/token-dashboard`](https://github.com/nate
     </td>
   </tr>
 </table>
-
-> GitHub’s automatic Contributors sidebar is generated from Git commits linked to real GitHub accounts. The Contributors block above records AI assistance explicitly without pretending that Codex is an independent GitHub account.
