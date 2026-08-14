@@ -23,8 +23,24 @@
 - **技能**：统计 Claude Code / Codex 技能调用次数，并估算技能定义加载量。
 - **建议**：根据重复读取、过大的工具结果和低缓存命中率给出节省 token 的建议。
 - **设置**：在 API、Pro、Max 和 Max 20x 计划之间切换费用展示方式。
+- **多模型统计**：同一个本地 dashboard 可以同时统计多个厂商、多个部署和多个模型，不受仓库内置价格表的模型列表限制。
 - **Steins;Gate 主题**：世界线计数器、角色视觉和 divergence meter 风格的 token 展示。
 - **隐私模式**：在页面内模糊提示词、项目名、会话标识和建议内容。
+
+### 多模型支持（核心特点）
+
+统计器按日志中的 `message.model` 原样分组，因此可以在同一个 SQLite 数据库中对比不同模型的输入、输出、缓存和成本。常见的模型示例包括（实际名称以你的日志为准）：
+
+| 厂商 / 生态 | 模型示例 |
+| --- | --- |
+| OpenAI | GPT-5、GPT-4.1、o3、o4-mini |
+| Anthropic | Claude Opus、Claude Sonnet、Claude Haiku |
+| Google | Gemini Pro、Gemini Flash |
+| DeepSeek | DeepSeek Chat、DeepSeek Reasoner |
+| 阿里云 / 通义 | Qwen、Qwen3、Qwen-Max |
+| Meta / Mistral | Llama、Mistral Large |
+
+内置 [`pricing.json`](pricing.json) 只是可直接估算费用的示例价格配置，不是模型白名单。只要会话记录能提供模型名和用量字段，模型即使不在这个文件中也会正常计入 token；补充价格后才能计算成本。你可以把多个 Claude-compatible JSONL 根目录通过 `TOKDASH_PROJECTS_DIRS` 一起部署统计，也可以先用 Codex 桥接器转换其他本地记录。
 
 ## 相比上游的改进
 
@@ -84,7 +100,7 @@ Codex 桥接器也可以把本机 Codex 记录转换成相同的统计输入。�
 
 ### 手动添加模型价格
 
-价格表位于 [`pricing.json`](pricing.json)。模型 key 必须与日志中的 `message.model` 完全一致，价格单位是美元/1,000,000 tokens：
+价格表位于 [`pricing.json`](pricing.json)。它只负责成本估算，不限制可统计的模型。模型 key 必须与日志中的 `message.model` 完全一致，价格单位是美元/1,000,000 tokens：
 
 ```json
 {
@@ -101,7 +117,7 @@ Codex 桥接器也可以把本机 Codex 记录转换成相同的统计输入。�
 }
 ```
 
-修改后重新加载页面即可生效。需要历史价格时加入 `history` 数组，每项使用 UTC 的 `before` 时间；需要长上下文价格时加入 `long_context_threshold`、`long_context_input_multiplier` 和 `long_context_output_multiplier`。建议让 AI 根据模型官方价格页生成 JSON，再人工核对模型名称、缓存价格、货币和生效时间。未知模型仍会显示 token，但费用会标记为未知或估算。
+修改后重新加载页面即可生效。需要历史价格时加入 `history` 数组，每项使用 UTC 的 `before` 时间；需要长上下文价格时加入 `long_context_threshold`、`long_context_input_multiplier` 和 `long_context_output_multiplier`。建议让 AI 根据模型官方价格页生成 JSON，再人工核对模型名称、缓存价格、货币和生效时间。未知模型仍会显示 token，但费用会标记为未知或估算，因此你可以先统计新模型，再补价格配置。
 
 ## 隐私与安全
 
@@ -137,6 +153,8 @@ node --test tests/*.test.mjs
 
 ## Contributors
 
+贡献成员按实际承担的项目职责列出：屿沐 / Vesper-lucky 负责项目维护与发布，OpenAI Codex 参与代码实现、统计逻辑优化、双语文档和开源整理。
+
 <table>
   <tr>
     <td align="center" valign="top" width="160">
@@ -155,5 +173,3 @@ node --test tests/*.test.mjs
     </td>
   </tr>
 </table>
-
-> GitHub 右侧自动 Contributors 列表只根据 Git commit 关联的真实 GitHub 账号生成；上面的 Contributors 区域用于完整记录 AI 辅助贡献，不冒充独立 GitHub 账号。
